@@ -12,7 +12,7 @@
             {% for note in notes %}
                 <div>
                     <h3>
-                      {{ note.label }}
+                        <a href="{% url 'simple_app:note_detail' pk=note.pk %}">{{ note.label }}</a>
                     </h3>
                     <div>
                       {{ note.text|truncatewords:20 }} <br> {{ note.created_at }}
@@ -25,6 +25,6 @@
     {% endif %}
         <div>
             <a href="{% url 'simple_app:note_create' %}"
-            >Create a new note</a>
+            >Create new note</a>
         </div>
 {% endblock %}

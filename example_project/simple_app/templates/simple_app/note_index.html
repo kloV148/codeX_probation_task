@@ -1,0 +1,18 @@
+{% extends 'simple_app/base.html' %}
+
+{% block title %}
+    Notes list
+{% endblock %}
+
+{% block body %}
+    <h2>
+        Hello!
+    </h2>
+    <div>
+        <a href="{% url 'simple_app:note_create' %}"
+        >Create a new note</a>
+        <br>
+        <a href="{% url 'simple_app:notes_list' %}"
+        >See all notes</a>
+    </div>
+{% endblock %}

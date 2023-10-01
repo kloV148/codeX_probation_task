@@ -1,0 +1,21 @@
+{% extends 'simple_app/base.html' %}
+
+{% block title %}
+    None #{{ note.pk }}
+{% endblock %}
+
+{% block body %}
+    <h1>Note <strong>{{ note.pk }}</strong></h1>
+    <div>
+        <div>Label: <em>{{ note.label }}</em></div>
+        <div>Text: {{ note.text }}</div>
+        <div>Created at: {{ note.created_at }}</div>
+    </div>
+    <div>
+        <a href="{% url 'simple_app:note_update' pk=note.pk %}">Update note</a>
+    </div>
+    <div>
+        <a href="{% url 'simple_app:notes_list' %}">Back to notes list</a>
+    </div>
+
+{% endblock %}
