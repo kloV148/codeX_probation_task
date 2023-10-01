@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'simple_app/base.html' %}
+
+{% block title %}
+  Notes list
+{% endblock %}
+
+{% block body %}
+    <h1>Notes:</h1>
+    <h2>There is a list of all notes</h2>
+    {% if notes %}
+        <div>
+            {% for note in notes %}
+                <div>
+                    <h3>
+                      {{ note.label }}
+                    </h3>
+                    <div>
+                      {{ note.text|truncatewords:20 }} <br> {{ note.created_at }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h3>No notes yet</h3>
+    {% endif %}
+        <div>
+            <a href="{% url 'simple_app:note_create' %}"
+            >Create a new note</a>
+        </div>
+{% endblock %}

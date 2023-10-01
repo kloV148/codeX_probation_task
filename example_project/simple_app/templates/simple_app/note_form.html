@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'simple_app/base.html' %}
+
+{% block title %}
+  Create note
+{% endblock %}
+
+{% block body %}
+  <h1>Create Note</h1>
+  <div>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Create</button>
+    </form>
+  </div>
+    <div>
+    <a href="{% url 'simple_app:notes_list' %}"
+    >Back to notes list</a>
+  </div>
+{% endblock %}
