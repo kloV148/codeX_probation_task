@@ -3,6 +3,9 @@ from django.http import HttpResponse, HttpRequest
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from rest_framework import generics
+
+from simple_app.serializers import NoteSerializer
 
 from .forms import NoteForm
 from .models import Note
@@ -38,3 +41,8 @@ class NoteUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse("simple_app:notes_list")
+
+
+class NoteApiView(generics.ListAPIView):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer

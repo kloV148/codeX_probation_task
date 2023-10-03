@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_prometheus',
 
-    'simple_app'
+    'rest_framework',
+    'simple_app',
 ]
 
 MIDDLEWARE = [
