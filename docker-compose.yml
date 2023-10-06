@@ -25,12 +25,41 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
 
-  prometheus:
-    image: prom/prometheus
+  # prometheus:
+  #   image: prom/prometheus
+  #   volumes:
+  #     - ./prometheus/:/etc/prometheus
+  #   ports:
+  #   - "9090:9090"
+
+  telegraf:
+    image: telegraf
     volumes:
-      - ./prometheus/:/etc/prometheus
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+    depends_on:
+      - django-app
+      - influxdb
+    links:
+      - influxdb
     ports:
-    - "9090:9090"
+    - '8125:8125'
+
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    restart: always
+    environment:
+      - INFLUXDB_DB=influx
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin 
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+
+
+
 
 volumes:
   db_data:
+  influxdb_data:
