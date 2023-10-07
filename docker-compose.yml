@@ -13,6 +13,8 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
     depends_on:
      - db
 
@@ -25,15 +27,9 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
 
-  # prometheus:
-  #   image: prom/prometheus
-  #   volumes:
-  #     - ./prometheus/:/etc/prometheus
-  #   ports:
-  #   - "9090:9090"
-
   telegraf:
     image: telegraf
+    container_name: telegraf
     volumes:
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
     depends_on:
@@ -57,9 +53,26 @@ services:
     volumes:
       - influxdb_data:/var/lib/influxdb
 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana-server
+    restart: always
+    depends_on:
+      - influxdb
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=
+    links:
+      - influxdb
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana_data:/var/lib/grafana
 
 
 
 volumes:
   db_data:
   influxdb_data:
+  grafana_data:
