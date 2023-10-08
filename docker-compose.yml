@@ -16,6 +16,7 @@ services:
 
   db:
     image: postgres
+    restart: always
     env_file:
       - ./env_variables/db.env
     volumes:
@@ -52,10 +53,8 @@ services:
     restart: always
     depends_on:
       - influxdb
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=
+    env_file:
+     - ./env_variables/grafana.env
     links:
       - influxdb
     ports:
