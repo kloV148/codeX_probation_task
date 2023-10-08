@@ -1,1 +1,2 @@
-# codeX_probation_task
+> Осень 2023, DevOps
+# Тестовое задание CodeX
