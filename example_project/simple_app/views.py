@@ -3,7 +3,10 @@ from django.http import HttpResponse, HttpRequest
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
-from rest_framework import generics
+from rest_framework import generics, response
+from rest_framework.views import APIView
+
+
 
 from simple_app.serializers import NoteSerializer
 
@@ -46,3 +49,10 @@ class NoteUpdateView(UpdateView):
 class NoteApiView(generics.ListAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+
+
+class NoteCountApiView(APIView):
+    def get(self, request):
+        note_count = Note.objects.count()
+        content = {'note_count': note_count}
+        return response.Response(content)
