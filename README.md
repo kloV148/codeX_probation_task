@@ -27,3 +27,5 @@ python manage.py migrate
 После этого django приложение должно работать. 
 
 Для доступа к Grafana надо перейти на локальной машине по адресу `localhost:3000`.
+
+![схема работы системы](./images/DWH_prototype.png)
