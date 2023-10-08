@@ -15,6 +15,7 @@ from .models import Note
 
 
 class NotesIndexView(View):
+    # render start page
     def get(self, request: HttpRequest) -> HttpResponse:
         context = {
         }
@@ -22,22 +23,26 @@ class NotesIndexView(View):
 
 
 class NoteDetailView(DetailView):
+    # page with information about single note
     template_name = "simple_app/note_details.html"
     model = Note
     context_object_name = "note"
 
 class NotesListView(ListView):
+    # page with list of all notes (not archived)
     template_name = "simple_app/notes_list.html"
     context_object_name = "notes"
     queryset = Note.objects.filter(archived=False)
 
 class NoteCreateView(CreateView):
+    # create new note, user input label and text
     model = Note
     fields = "label", "text"
     success_url = reverse_lazy("simple_app:notes_list")
 
 
 class NoteUpdateView(UpdateView):
+    # update notes
     model = Note
     template_name = "simple_app/note_update_form.html"
     form_class = NoteForm
@@ -47,11 +52,13 @@ class NoteUpdateView(UpdateView):
 
 
 class NoteApiView(generics.ListAPIView):
+    # return all notes
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
 
 
 class NoteCountApiView(APIView):
+    # return count of all notes
     def get(self, request):
         note_count = Note.objects.count()
         content = {'note_count': note_count}
