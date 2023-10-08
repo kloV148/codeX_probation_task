@@ -5,6 +5,7 @@ services:
     container_name: django-app
     build: ./example_project
     command: python manage.py runserver 0.0.0.0:8000
+    restart: always
     volumes:
       - ./example_project:/app
     ports:
@@ -26,6 +27,7 @@ services:
   telegraf:
     image: telegraf
     container_name: telegraf
+    restart: always
     volumes:
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
     depends_on:
